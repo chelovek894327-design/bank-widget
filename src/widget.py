@@ -1,18 +1,16 @@
-from src.masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_card_number, get_mask_account
 
 
-def mask_account_card(card_or_account: str) -> str:
-    """Маскирует номер карты или счета."""
-    parts = card_or_account.split()
-    number = parts[-1]
-    name = " ".join(parts[:-1])
-
-    if name.lower() == "счет":
-        return f"{name} {get_mask_account(number)}"
-
-    return f"{name} {get_mask_card_number(number)}"
+def mask_account_card(data: str) -> str:
+    if data.startswith("Счет"):
+        return get_mask_account(data.split()[1])
+    else:
+        parts = data.split()
+        return f"{parts[0]} {get_mask_card_number(parts[1])}"
 
 
-def get_date(date_string: str) -> str:
-    """Преобразует дату в формат ДД.ММ.ГГГГ."""
-    return f"{date_string[8:10]}.{date_string[5:7]}.{date_string[0:4]}"
+def get_date(date_str: str) -> str:
+    return ".".join(reversed(date_str[:10].split("-")))
+
+
+
