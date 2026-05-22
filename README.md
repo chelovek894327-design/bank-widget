@@ -74,4 +74,16 @@ Python 3.10+
 Poetry
 Pytest
 Flake8
-MyPy
+MyPy## 🔄 Модуль generators
+
+Модуль содержит генераторы для обработки банковских транзакций.
+
+### 🔹 Фильтрация транзакций по валюте
+
+```python
+from src.generators import filter_by_currency
+
+usd_transactions = filter_by_currency(transactions, "USD")
+
+for transaction in usd_transactions:
+    print(transaction)
