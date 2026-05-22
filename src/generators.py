@@ -36,3 +36,29 @@ def transaction_descriptions(
     """
     for transaction in transactions:
         yield transaction.get("description", "")
+
+def card_number_generator(start: int, stop: int):
+            """
+            Генератор номеров банковских карт.
+
+            Генерирует номера карт в формате:
+            XXXX XXXX XXXX XXXX
+
+            Args:
+                start: Начальное значение диапазона.
+                stop: Конечное значение диапазона.
+
+            Yields:
+                Номер карты в формате XXXX XXXX XXXX XXXX.
+            """
+            for number in range(start, stop + 1):
+                card_number = str(number).zfill(16)
+
+                formatted_number = (
+                    f"{card_number[0:4]} "
+                    f"{card_number[4:8]} "
+                    f"{card_number[8:12]} "
+                    f"{card_number[12:16]}"
+                )
+
+                yield formatted_number
