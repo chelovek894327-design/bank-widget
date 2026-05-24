@@ -74,4 +74,45 @@ Python 3.10+
 Poetry
 Pytest
 Flake8
-MyPy
+MyPy## 🔄 Модуль generators
+
+Модуль содержит генераторы для обработки банковских транзакций.
+
+### 🔹 Фильтрация транзакций по валюте
+
+```python
+from src.generators import filter_by_currency
+
+usd_transactions = filter_by_currency(transactions, "USD")
+
+for transaction in usd_transactions:
+    print(transaction)
+
+## Декоратор log
+
+Декоратор log позволяет логировать работу функций.
+
+### Возможности:
+- вывод логов в консоль
+- запись логов в файл
+- логирование ошибок и аргументов функции
+
+### Пример использования
+
+```python
+from src.decorators import log
+
+
+@log()
+def add(a: int, b: int) -> int:
+    return a + b
+
+
+add(2, 3)
+```
+
+Результат:
+
+```text
+add ok. Result: 5
+```

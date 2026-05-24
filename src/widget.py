@@ -1,22 +1,28 @@
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(data: str) -> str:
     """
-    Маскирует строку с банковской картой или номером счета.
+    Маскирует номер банковской карты или счета.
 
     Поддерживает форматы:
-    - "Visa Platinum 7000..."
-    - "Maestro 7000..."
-    - "Счет 7365..."
+    - "Visa Platinum 7000792289606361"
+    - "Maestro 7000792289606361"
+    - "Счет 73654108430135874305"
+
+    Args:
+        data: Строка с названием карты или счета и номером.
+
+    Returns:
+        Строка с замаскированным номером.
     """
+    parts = data.split()
 
-    parts = data.split(maxsplit=1)
-
-    if len(parts) != 2:
+    if len(parts) < 2:
         return "Некорректный формат входных данных"
 
-    name, number = parts
+    number = parts[-1]
+    name = " ".join(parts[:-1])
 
     if name == "Счет":
         return f"{name} {get_mask_account(number)}"
@@ -27,8 +33,13 @@ def mask_account_card(data: str) -> str:
 def get_date(date_str: str) -> str:
     """
     Преобразует дату из формата ISO в DD.MM.YYYY.
-    """
 
+    Args:
+        date_str: Дата в формате YYYY-MM-DDTHH:MM:SS.
+
+    Returns:
+        Дата в формате DD.MM.YYYY.
+    """
     if len(date_str) < 10:
         return "Некорректная дата"
 
