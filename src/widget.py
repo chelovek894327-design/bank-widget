@@ -1,4 +1,4 @@
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(data: str) -> str:
@@ -11,7 +11,7 @@ def mask_account_card(data: str) -> str:
     - "Счет 7365..."
     """
 
-    parts = data.split(maxsplit=1)
+    parts = data.rsplit(maxsplit=1)
 
     if len(parts) != 2:
         return "Некорректный формат входных данных"
