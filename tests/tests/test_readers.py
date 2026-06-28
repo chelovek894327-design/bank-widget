@@ -7,8 +7,11 @@ from src.readers import read_csv_transactions, read_excel_transactions
 
 @patch("src.readers.pd.read_csv")
 def test_read_csv_transactions(mock_read_csv):
-    """Тест чтения CSV-файла."""
-
+    """
+    Проверяет, что функция read_csv_transactions:
+    - вызывает pandas.read_csv с переданным путем к файлу;
+    - возвращает список словарей с транзакциями.
+    """
     dataframe = pd.DataFrame(
         [
             {"id": 1, "amount": 100},
@@ -30,8 +33,11 @@ def test_read_csv_transactions(mock_read_csv):
 
 @patch("src.readers.pd.read_excel")
 def test_read_excel_transactions(mock_read_excel):
-    """Тест чтения Excel-файла."""
-
+    """
+    Проверяет, что функция read_excel_transactions:
+    - вызывает pandas.read_excel с переданным путем к файлу;
+    - возвращает список словарей с транзакциями.
+    """
     dataframe = pd.DataFrame(
         [
             {"id": 1, "amount": 100},

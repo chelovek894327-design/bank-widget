@@ -11,14 +11,19 @@ def mask_account_card(data: str) -> str:
     - "Счет 7365..."
     """
 
-    parts = data.rsplit(maxsplit=1)
+    if not isinstance(data, str):
+        return "Некорректный формат входных данных"
+
+    parts = data.strip().rsplit(" ", 1)
 
     if len(parts) != 2:
         return "Некорректный формат входных данных"
 
     name, number = parts
 
-    if name == "Счет":
+    name_clean = name.strip().lower()
+
+    if name_clean in ("счет", "счёт"):
         return f"{name} {get_mask_account(number)}"
 
     return f"{name} {get_mask_card_number(number)}"
@@ -26,12 +31,14 @@ def mask_account_card(data: str) -> str:
 
 def get_date(date_str: str) -> str:
     """
-    Преобразует дату из формата ISO в DD.MM.YYYY.
+    Преобразует дату из формата ISO (YYYY-MM-DD...) в DD.MM.YYYY.
     """
 
-    if len(date_str) < 10:
+    if not isinstance(date_str, str) or len(date_str) < 10:
         return "Некорректная дата"
 
-    year, month, day = date_str[:10].split("-")
-
-    return f"{day}.{month}.{year}"
+    try:
+        year, month, day = date_str[:10].split("-")
+        return f"{day}.{month}.{year}"
+    except ValueError:
+        return "Некорректная дата"

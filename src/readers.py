@@ -27,3 +27,4 @@ def read_excel_transactions(file_path: str) -> list[dict]:
     """
     dataframe = pd.read_excel(file_path)
     return dataframe.to_dict(orient="records")
+
